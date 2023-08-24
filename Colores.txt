@@ -1,0 +1,68 @@
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ColorUtils {
+
+    // Color baseColor = new Color(52, 152, 219);
+    // int numColoresGenera = 5;
+    // double pasosNegro = 0.1;
+
+
+    public static List<Color> generaColoresHaciaBlanco(Color baseColor, int count, double factor) {
+        List<Color> listColores = new ArrayList<>();
+
+        int baseR = baseColor.getRed();
+        int baseG = baseColor.getGreen();
+        int baseB = baseColor.getBlue();
+
+        for (int i = 0; i < count; i++) {
+            int newRed = (int) (baseR + (255 - baseR) * (i + 1) * factor);
+            int newGreen = (int) (baseG + (255 - baseG) * (i + 1) * factor);
+            int newBlue = (int) (baseB + (255 - baseB) * (i + 1) * factor);
+
+            newRed = Math.min(255, newRed);
+            newGreen = Math.min(255, newGreen);
+            newBlue = Math.min(255, newBlue);
+
+            listColores.add(new Color(newRed, newGreen, newBlue));
+        }
+
+        return listColores;
+    }
+
+	public static List<Color> generateDarkenedColorsTowardsBlack(Color baseColor, int count, double factor) {
+        List<Color> darkenedColors = new ArrayList<>();
+
+        int baseR = baseColor.getRed();
+        int baseG = baseColor.getGreen();
+        int baseB = baseColor.getBlue();
+
+        for (int i = 0; i < count; i++) {
+            int newRed = (int) (baseR * (1 - (i + 1) * factor));
+            int newGreen = (int) (baseG * (1 - (i + 1) * factor));
+            int newBlue = (int) (baseB * (1 - (i + 1) * factor));
+
+            newRed = Math.max(0, newRed);
+            newGreen = Math.max(0, newGreen);
+            newBlue = Math.max(0, newBlue);
+
+            darkenedColors.add(new Color(newRed, newGreen, newBlue));
+        }
+
+        return darkenedColors;
+    }
+
+	public static void main(String[] args) {
+        Color baseColor = new Color(52, 152, 219);
+        int numColoresGenera = 5;
+        double pasosNegro = 0.1;
+
+        List<Color> darkenedColors = generateDarkenedColorsTowardsBlack(baseColor, numColoresGenera, pasosNegro);
+
+        for (Color color : darkenedColors) {
+            System.out.println("R: " + color.getRed() + " G: " + color.getGreen() + " B: " + color.getBlue());
+        }
+    }
+	
+}
